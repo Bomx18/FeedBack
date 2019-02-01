@@ -1,0 +1,70 @@
+<form #form="ngForm" autocompLete="off" (submit)="onSubmit(form)">
+  <input type="hidden" name="UserID" [value]="service.formData.UserID">
+  <input  type="text" name="MessageID" #MessageID="ngModel" [(ngModel)]="service.formData.MessageID">
+  <input  type="text" name="ThemeID" #ThemeID="ngModel" [(ngModel)]="service.formData.ThemeID">
+  <input type="hidden" name="MessageID1" [value]="service.formDataMS.MessageID">
+
+
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text dg-white">
+          <i class="fas fa-users" [class.green-icon]="UserName.valid" [class.red-icon]="UserName.invalid && UserName.touched"></i>
+        </div>
+      </div>
+      <input type="text" name="UserName" #UserName="ngModel" [(ngModel)]="service.formData.UserName" class="form-control"
+        placeholder="Введите имя" required maxlength="16" minlength="1">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text dg-white">
+          <i class="fas fa-at" [class.green-icon]="UserEmail.valid" [class.red-icon]="UserEmail.invalid && UserEmail.touched"></i>
+        </div>
+      </div>
+      <input type="email" name="UserEmail" #UserEmail="ngModel" required email [(ngModel)]="service.formData.UserEmail"
+        class="form-control" placeholder="Введите email" required maxlength="30" minlength="1">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text dg-white">
+          <i class="fas fa-phone" [class.green-icon]="UserNumPhone.valid" [class.red-icon]="UserNumPhone.invalid && UserNumPhone.touched"></i>&nbsp;&nbsp;+7
+        </div>
+      </div>
+      <div>
+        <input (keypress)="restrictNumeric($event)" type="text" name="UserNumPhone" #UserNumPhone="ngModel" [(ngModel)]="service.formData.UserNumPhone"
+          class="form-control" placeholder="Введите номер телефона" required maxlength="10" minlength="1">
+      </div>
+    </div>
+    <br>
+  </div>
+
+  <select name="Theme" #Theme="ngModel" [(ngModel)]="service.str" class="form-control" required="">
+    <option value="">Выберите тему</option>
+    <option class="form-control" *ngFor="let dept of service.listTheme" [value]="dept.ThemeID">
+      {{dept.TextTheme}}
+    </option>
+  </select>
+
+  <div class="form-group">
+    <div class="textarea-group">
+      <textarea name="TextMessage" #TextMessage="ngModel" [(ngModel)]="service.formDataMS.TextMessage" placeholder="Text . . ."
+        required maxlength="150" minlength="1" cols="70" rows="3"></textarea>
+
+      <br>
+
+    </div>
+    <br>
+  </div>
+
+
+
+  <div class="form-group">
+    <button class="btn btn-success btn-lg btn-block" type="submit"  [disabled]="form.invalid">Отправить
+    </button>
+  </div>
+
+</form>

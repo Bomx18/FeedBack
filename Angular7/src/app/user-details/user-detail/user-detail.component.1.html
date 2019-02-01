@@ -1,0 +1,56 @@
+<form #form="ngForm" autocompLete="off">
+  <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text dg-white">
+            <i class="fas fa-user"></i>
+          </div>
+        </div>
+      <input name="UserName" #UserName="ngModel" [(ngModel)]="service.UserName" class="form-control" placeholder="User name">
+    </div>
+    <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text dg-white">
+              <i class="fas fa-at"></i>
+          </div>
+        </div>
+      <input name="UserName" #UserName="ngModel" [(ngModel)]="service.UserName" class="form-control" placeholder="User name">
+    </div>
+    <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text dg-white">
+              <i class="fas fa-phone"></i>
+          </div>
+        </div>
+      <input name="UserName" #UserName="ngModel" [(ngModel)]="service.UserName" class="form-control" placeholder="User name">
+    </div>
+    <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text dg-white">
+              <i class="fas fa-list-ul"></i>
+          </div>
+        </div>
+      <input name="UserName" #UserName="ngModel" [(ngModel)]="service.UserName" class="form-control" placeholder="User name">
+    </div>
+
+  </div>
+  
+  <br>
+  <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text dg-white">
+            <i class="fas fa-comment"></i>
+        </div>
+      </div>
+      <textarea class="form-control" rows="5" ></textarea>
+    </div>
+    <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text dg-white">
+              <i class="fas fa-unlock"></i>
+          </div>
+        </div>
+        <input name="UserName" #UserName="ngModel" [(ngModel)]="service.UserName" class="form-control" placeholder="Code">
+      </div>
+    
+</form>

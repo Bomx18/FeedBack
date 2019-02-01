@@ -1,0 +1,130 @@
+import { Component, OnInit, ViewChild, VERSION } from '@angular/core';
+import { UserDetailService } from 'src/app/shared/user-detail.service';
+import { NgForm, FormGroup, FormControl, Validators, FormsModule } from '@angular/forms';
+import { textBinding } from '@angular/core/src/render3';
+import { from } from 'rxjs';
+import { getListeners } from '@angular/core/src/render3/discovery_utils';
+import { Services } from '@angular/core/src/view';
+import { ToastrService } from 'ngx-toastr';
+import {FormModel } from 'src/app/app.component';
+import { UserDetail } from 'src/app/shared/user-detail.model';
+
+@Component({
+  selector: 'app-user-detail',
+  templateUrl: './user-detail.component.html',
+  styles: []
+})
+
+
+export class UserDetailComponent implements OnInit {
+  public formRequired: FormModel = {};
+  public Userform : UserDetail;
+
+  resolved(captchaResponse: string) {
+        console.log(`Resolved captcha with response ${captchaResponse}:`);
+    }
+  constructor(private service: UserDetailService,
+    private toastr: ToastrService) {
+  }
+
+  ngOnInit() {
+    this.service.GetlistTheme();
+    this.resetForm();
+  }
+
+  resetForm(form?: NgForm) {
+    if (form != null)
+      form.form.reset();
+    //form.form.reset();
+    this.service.formData = {
+      UserID: 0,
+      UserName: '2324',
+      UserEmail: '2@e',
+      UserNumPhone: '2',
+      IDMessage: 0,
+      IDTheme: 0
+    }
+    this.service.formDataTh = {
+      ThemeID: 0,
+      TextTheme: ''
+    }
+    this.service.formDataMS = {
+      MessageID: 0,
+      TextMessage: ''
+    }
+    this.formRequired ={
+      captcha:''
+    }
+   this.service.str='';
+  }
+
+  onSubmit(form: NgForm) {
+    console.log(form.value);
+    //запись в базу через два контроллера 
+  /*this.service.postUserDetail(form.value).subscribe(
+      res => {
+        /*this.service.postMessageDetail(form.value).subscribe(
+          res => {
+            this.resetForm(form);
+            this.service.GetlistUser();
+          },
+          err => {
+            console.log(err);
+          }
+        )
+        this.resetForm(form);
+      },
+      err => {
+        console.log(err);
+      }
+    )
+    
+   /*ShowEmail: string;
+    ShowPhone: string;
+    ShowTheme: string;
+    ShowMessage: string;*/
+
+
+
+  }
+
+  public SetVal(form?:NgForm) {
+
+    this.service.GetlistMessage();
+    try {
+      this.service.formData.IDMessage = this.service.listMessage[this.service.listMessage.length - 1].MessageID + 1;
+    }
+    catch (e) {
+      this.service.formData.IDMessage = 1;
+    }
+    this.service.formData.IDTheme = parseInt(this.service.str);
+    console.log(this.service.formData.IDMessage);
+    console.log(this.service.formData.IDTheme);
+    this.service.GetlistUser();
+  
+    console.log(this.service.formData.IDMessage);
+    console.log(this.service.formData.IDTheme);
+    this.service.GetlistTheme();
+    
+    console.log(form.value);
+  }
+  //ввод только цифр в <input>
+  public restrictNumeric(e) {
+    let input;
+    if (e.metaKey || e.ctrlKey) {
+      return true;
+    }
+    if (e.which === 32) {
+      return false;
+    }
+    if (e.which === 0) {
+      return true;
+    }
+    if (e.which < 33) {
+      return true;
+    }
+    input = String.fromCharCode(e.which);
+    return !!/[\d\s]/.test(input);
+  }
+}
+
